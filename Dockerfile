@@ -10,4 +10,3 @@ RUN mvn package
 
 cmd ["java", "-jar", "target/test.jar"]
 
-

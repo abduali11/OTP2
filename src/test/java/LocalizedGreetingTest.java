@@ -30,11 +30,19 @@ public class LocalizedGreetingTest {
     }
 
     @Test
+    public void testPersiangreeting() {
+        Locale locale = new Locale("fa", "IR");
+        ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        String greeting = messages.getString("greeting");
+        assertEquals("سلام", greeting);
+    }
+    @Test
     public void testInvalidChoiceDefaultsToEnglish() {
         Locale locale = new Locale("en", "US"); // Simulate default choice
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String greeting = messages.getString("greeting");
         assertEquals("Hello!", greeting); // Expected default is English
     }
+
 }
 

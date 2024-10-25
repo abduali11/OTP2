@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -13,7 +14,16 @@ public class LocalizedGreeting {
         System.out.println("4. Iranian");
 
         Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
+        int choice = 0;
+
+        // Input validation to prevent crashes
+        try {
+            choice = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.close();
+            return; // Exit early if input is invalid
+        }
 
         // Set the locale based on user's choice
         Locale locale;
@@ -40,10 +50,12 @@ public class LocalizedGreeting {
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 
         // Display the localized greeting message
-        System.out.println(messages.getString("greeting"));
+        try {
+            System.out.println(messages.getString("greeting"));
+        } catch (Exception e) {
+            System.out.println("Error: Could not find the greeting message for the selected locale.");
+        }
 
         scanner.close();
     }
 }
-
-
